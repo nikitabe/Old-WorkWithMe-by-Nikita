@@ -1,0 +1,459 @@
+<html>
+<head>
+<style type="text/css">
+table.helpT
+{ text-align: center;
+font-family: Verdana;
+font-weight: normal;
+font-size: 11px;
+color: #404040;
+width: 500px;
+background-color: #fafafa;
+border: 1px #6699CC solid;
+border-collapse: collapse;
+border-spacing: 0px; }
+
+td.helpHed
+{ border-bottom: 2px solid #6699CC;
+border-left: 1px solid #6699CC;
+background-color: #BEC8D1;
+text-align: left;
+text-indent: 5px;
+font-family: Verdana;
+font-weight: bold;
+font-size: 11px;
+color: #404040; }
+
+td.helpBod
+{ border-bottom: 1px solid #9CF;
+border-top: 0px;
+border-left: 1px solid #9CF;
+border-right: 0px;
+text-align: left;
+text-indent: 10px;
+font-family: Verdana, sans-serif, Arial;
+font-weight: normal;
+font-size: 11px;
+color: #404040;
+background-color: #fafafa; }
+
+table.sofT
+{ text-align: left;
+font-family: Verdana;
+font-weight: normal;
+font-size: 11px;
+color: #404040;
+width: 650px;
+background-color: #fafafa;
+border: 1px #6699CC solid;
+border-collapse: collapse;
+border-spacing: 0px; } 
+
+td
+{
+    margin:10px;
+    padding:5px
+}
+
+</style>
+<link href="libs/docs/prettify.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="libs/docs/prettify.js"></script>
+</head>
+<body onload="prettyPrint()">
+<title>Rawseo.com - Address Verification API</title>
+<table align="center">
+<tr>
+<td><h3>Address Verification Toolkit - Installation Guide</h3>
+<img src="images/usps.gif" border="0">
+</td>
+</tr>
+<tr>
+<td><h4>Jaslabs, LLC - <a href="http://www.rawseo.com" target="_blank">http://www.rawseo.com</a><br>Support: <a href="mailto: support@rawseo.com">support@rawseo.com</a></h4></td>
+</tr>
+</table>
+<h3>Introduction</h3>
+<p>
+Thank you for downloading the 15-day trial of the rawseo address verification toolkit.  This toolkit can be used on any website to correct and verify addresses through the United States Postal Service.  If you would like to use it past the 30 days, you need to purchase a site license <a href="https://sites.fastspring.com/rawseo/instant/rawseouspsaddressverificationtoolkit">Here</a>.  After the toolkit has expired, you will not be notified (IE: There will be no popups warning you that it has expired.  It will just stop functioning/verifying addresses).
+
+<br><br><font color="red">If you would like us to notify you when your 15-day trial is about to expire, please enter your email address below:</font>
+<br><br>
+<iframe src="http://www.rawseo.com/emailNotifyForm.htm" style="{border-width: 0px;height: 100px;width: 400px;}" frameborder="0"></iframe>
+<h3>Pre-install</h3>
+<b>Step 1:</b> Register for a USPS web tools account <a href="https://secure.shippingapis.com/registration/" target="_blank">here</a><br>
+<b>Step 2:</b> After your account has been created in step one, you need to get special permission from USPS to use the address verification API. This is free, but you need to fill out the form <a href="http://www.usps.com/webtools/webtoolsapirequestform.htm" target="_blank">here</a><br>
+<b>Step 3:</b> Upload all files included in the download to your site<br>
+<b>Step 4:</b> Open the following file: <b>plugins/configure.php</b> and change the following (it's near the top of the file):<br><br>
+
+<pre class="prettyprint lang-php" width="65%">
+define("USPS_USERNAME","*your username from usps goes here*");
+</pre><br>
+<br>
+<b>Step 5:</b> Click the test button below to make sure you have all of the proper settings and software installed.<br><br>
+<iframe src="test.htm" style="{border-width: 0px;height: 200px;width: 400px;}"></iframe><br><br>
+<h3>Installing on your site</h3>
+<b>Step 1:</b> Add the following between the <b>&lt;head&gt; &lt;/head&gt;</b> tag on the page where your address form resides <b>(rusps.formname should also be changed to the name of your form)</b>.<br><br>
+
+<pre class="prettyprint lang-php" width="85%">
+&lt;script type="text/javascript" src="usps/js/jslibs.js.php"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+rusps.formname = '** Your form name **';   //this is the name of the form that contain the fields we need to check
+&lt;/script&gt;
+
+</pre>
+
+<b>Note:</b> The input type names on your page should match the ones in <b>plugins/configure.php</b>
+
+<pre class="prettyprint lang-php" width="85%">
+//this defines your form fields on the page.  These should be the names of your fields on your page
+define('ADDRESS1_FIELD','address1');
+define('ADDRESS2_FIELD','address2');
+define('CITY_FIELD','city');
+define('STATE_FIELD','state');
+define('ZIP_FIELD','zip');
+//end defining form fields
+</pre>
+<br>
+By default, the state values returned are the capitalized abbreviations.  If you need this changed, it can also be done in <b>plugins/configure.php</b><br>
+<pre class="prettyprint lang-php" width="85%">
+$stateMap['AL'] = ""; 			//ALABAMA
+$stateMap['AK'] = "";			//ALASKA
+$stateMap['AS'] = ""; 			//AMERICAN SAMOA
+$stateMap['AZ'] = "";			//ARIZONA
+$stateMap['AR'] = ""; 			//ARKANSAS
+$stateMap['CA'] = "";			//CALIFORNIA
+$stateMap['CO'] = ""; 			//COLORADO
+$stateMap['CT'] = "";			//CONNECTICUT
+$stateMap['DE'] = ""; 			//DELAWARE
+//end defining form fields
+</pre>
+(The values added above will overwrite the value returned from the USPS servers)
+
+<h3>Documentation</h3>
+<table class="sofT">
+    <tr>
+      <td class="helpHed">Variable</td>
+      <td class="helpHed">Possible values</td>
+      <td class="helpHed">Default</td>
+      <td class="helpHed">Description</td>
+    </tr>
+<td>rusps.formname</td>
+<td>Name of a form the page</td>
+<td></td>
+<td>This is the name of the form that contains the fields to be verified</td>
+</tr>
+<tr>
+<td>rusps.ftimeout</td>
+<td>Timeout in milliseconds</td>
+<td>5000</td>
+</tr>
+<tr>
+<td>rusps.fconfirm</td>
+<td>true,false</td>
+<td>false</td>
+<td>After an address needs to be corrected, if this is set to true, a popup will be displayed to the user for confirmation</td>
+</tr>
+<tr>
+<td>rusps.fconfmsg</td>
+<td>The message displayed to the user if an address needs to be corrected</td>
+<td>"Is this what you meant?"</td>
+<td>his is the messaged displayed on the confirmation popup after an address correction</td>
+</tr>
+<tr>
+<td>rusps.fill</td>
+<td>['address1','address2','city','zip']</td>
+<td>All fields will be corrected by default</td>
+<td>You can specify fields that you only want filled in</td>
+</tr>
+<tr>
+<td>rusps.fcallback</td>
+<td>A function name that will be called when an address needs to be corrected <b>(see below)</b></td>
+<td></td>
+<td>The function you specify will be called when an address needs to be corrected</td>
+</tr>
+<tr>
+<td>rusps.ferror</td>
+<td>A function name that will be called when an error has occured <b>(see below)</b></td>
+<td></td>
+<td>The function you specify will be called when an error has occured</td>
+</tr>
+<tr>
+<td>rusps.autocheck</td>
+<td>true/false</td>
+<td>true</td>
+<td>If this is disabled, fields on your form will not be checked and you need to call the check functions manually.</td>
+</tr>
+<tr>
+<td>rusps.autocheckmode</td>
+<td>1,2,3</td>
+<td>3</td>
+<td>If autocheck is set to true, this allows you to specify what is enabled (1=address verification only,2=zip code check only, 3=both (default))</td>
+</tr>
+</table>
+<br><br>
+
+
+<table class="sofT">
+    <tr>
+      <td class="helpHed">Function</td>
+      <td class="helpHed">Description</td>
+    </tr>
+<tr>
+<td>rusps.verifyAddress('address')</td>
+<td>This function should get called when you want to verify an address (city+state+address is required).  It will fill in a corrected address and a zipcode.</td>
+</tr>
+<tr>
+<td>rusps.verifyAddress('zipcode')</td>
+<td>This function should get called when you want to retrieve a city+state from a zipcode.</td>
+</tr>
+</table>
+
+
+<pre class="prettyprint lang-javascript" width="100%">
+-------------------------------
+- rusps.fcallback description -
+-------------------------------
+
+function callback(address1,address2,city,state,zip)
+{
+	alert('called from a callback: \n\n'+address1+address2+'\n'+city+'\n'+state+'\n'+zip);
+	return true;
+}
+
+</pre>
+<br>
+<pre class="prettyprint lang-javascript" width="100%">
+-------------------------------
+- rusps.ferror description    -
+-------------------------------
+
+//error handling function
+function errorHandler(code)
+{	
+	switch(code)
+	{
+		case 1:
+			//The address you specified could not be found
+		break;
+		case 3:
+		 	//Could not connect to the USPS api servers.
+		break;
+		case 4:
+			//An unknown error has occured
+		break;
+	}
+}
+
+</pre>
+<h3>Examples</h3>
+
+<h4>Example 1</h4>
+
+<p>
+This is a simple example of usage.  Both address verification and zipcode checks are enabled automatically
+</p>
+
+<iframe src="example1.htm" style="{border-width: 0px;height: 200px;width: 400px;}"></iframe><br><br>
+<b>Example 1 Source:</b>
+
+<pre class="prettyprint lang-javascript" width="100%">
+&lt;head&gt;
+&lt;script type="text/javascript" src="js/jslibs.js.php5"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+rusps.formname = 'checkform';   //this is the name of the form that contain the fields we need to check
+&lt;/script&gt;
+&lt;/head&gt;
+</pre>
+
+<br>
+
+The main form that is validated.
+
+<pre class="prettyprint lang-html" width="100%">
+&lt;form name="checkform" id="checkform"&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;Address 1:&lt;/td&gt;&lt;td&gt;&lt;input type="text" name="address1" value="1600 Pennsylvania Avenue"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Address 2:&lt;/td&gt;&lt;td&gt;&lt;input type="text" id="address2" name="address2"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;City:&lt;/td&gt;&lt;td&gt;&lt;input type="text" id="city" name="city" value="Washington"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;State:&lt;/td&gt;
+&lt;td&gt;
+&lt;select name="state"&gt;
+&lt;option value="AL"&gt;Alabama&lt;/option&gt;
+&lt;option value="AK"&gt;Alaska&lt;/option&gt;
+&lt;option value="AS"&gt;American Samoa&lt;/option&gt;
+&lt;option value="AZ"&gt;Arizona&lt;/option&gt;
+&lt;option value="AR"&gt;Arkansas&lt;/option&gt;
+&lt;option value="CA"&gt;California&lt;/option&gt;
+&lt;option value="CO"&gt;Colorado&lt;/option&gt;
+&lt;option value="CT"&gt;Connecticut&lt;/option&gt;
+&lt;option value="DE"&gt;Delaware&lt;/option&gt;
+&lt;option value="DC" selected&gt;District of Columbia&lt;/option&gt;
+&lt;option value="FM"&gt;Federated States Of Micronesia&lt;/option&gt;
+&lt;option value="FL"&gt;Florida&lt;/option&gt;
+&lt;option value="GA"&gt;Georgia&lt;/option&gt;
+&lt;option value="GU"&gt;Guam&lt;/option&gt;
+&lt;option value="HI"&gt;Hawaii&lt;/option&gt;
+&lt;option value="ID"&gt;Idaho&lt;/option&gt;
+&lt;option value="IL"&gt;Illinois&lt;/option&gt;
+&lt;option value="IN"&gt;Indiana&lt;/option&gt;
+&lt;option value="IA"&gt;Iowa&lt;/option&gt;
+&lt;option value="KS"&gt;Kansas&lt;/option&gt;
+&lt;option value="KY"&gt;Kentucky&lt;/option&gt;
+&lt;option value="LA"&gt;Louisiana&lt;/option&gt;
+&lt;option value="ME"&gt;Maine&lt;/option&gt;
+&lt;option value="MH"&gt;Marshall Islands&lt;/option&gt;
+&lt;option value="MD"&gt;Maryland&lt;/option&gt;
+&lt;option value="MA"&gt;Massachusetts&lt;/option&gt;
+&lt;option value="MI"&gt;Michigan&lt;/option&gt;
+&lt;option value="MN"&gt;Minnesota&lt;/option&gt;
+&lt;option value="MS"&gt;Mississippi&lt;/option&gt;
+&lt;option value="MO"&gt;Missouri&lt;/option&gt;
+&lt;option value="MT"&gt;Montana&lt;/option&gt;
+&lt;option value="NE"&gt;Nebraska&lt;/option&gt;
+&lt;option value="NV"&gt;Nevada&lt;/option&gt;
+&lt;option value="NH"&gt;New Hampshire&lt;/option&gt;
+&lt;option value="NJ"&gt;New Jersey&lt;/option&gt;
+&lt;option value="NM"&gt;New Mexico&lt;/option&gt;
+&lt;option value="NY"&gt;New York&lt;/option&gt;
+&lt;option value="NC"&gt;North Carolina&lt;/option&gt;
+&lt;option value="ND"&gt;North Dakota&lt;/option&gt;
+&lt;option value="MP"&gt;Northern Mariana Islands&lt;/option&gt;
+&lt;option value="OH"&gt;Ohio&lt;/option&gt;
+&lt;option value="OK"&gt;Oklahoma&lt;/option&gt;
+&lt;option value="OR"&gt;Oregon&lt;/option&gt;
+&lt;option value="PW"&gt;Palau&lt;/option&gt;
+&lt;option value="PA"&gt;Pennsylvania&lt;/option&gt;
+&lt;option value="PR"&gt;Puerto Rico&lt;/option&gt;
+&lt;option value="RI"&gt;Rhode Island&lt;/option&gt;
+&lt;option value="SC"&gt;South Carolina&lt;/option&gt;
+&lt;option value="SD"&gt;South Dakota&lt;/option&gt;
+&lt;option value="TN"&gt;Tennessee&lt;/option&gt;
+&lt;option value="TX"&gt;Texas&lt;/option&gt;
+&lt;option value="UT"&gt;Utah&lt;/option&gt;
+&lt;option value="VT"&gt;Vermont&lt;/option&gt;
+&lt;option value="VI"&gt;Virgin Islands&lt;/option&gt;
+&lt;option value="VA"&gt;Virginia&lt;/option&gt;
+&lt;option value="WA"&gt;Washington&lt;/option&gt;
+&lt;option value="WV"&gt;West Virginia&lt;/option&gt;
+&lt;option value="WI"&gt;Wisconsin&lt;/option&gt;
+&lt;option value="WY"&gt;Wyoming&lt;/option&gt;
+&lt;/select&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Zip:&lt;/td&gt;&lt;td&gt;&lt;input type="text" name="zip" autocomplete="off"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+</pre>
+<h4>Example 2</h4>
+Auto-corrections have been disabled (zipcode and address) and the address is only verified when the ser clicks the "verify" button.<br>
+<iframe src="example2.htm" style="{border-width: 0px;height: 200px;width: 400px;}"></iframe><br><br>
+<b>Example 2 Source:</b><br>
+<pre class="prettyprint lang-javascript" width="100%">
+&lt;head&gt;
+&lt;script type="text/javascript" src="js/jslibs.js.php"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+rusps.formname = 'checkform';   //this is the name of the form that contain the fields we need to check
+rusps.ftimeout = 5000;			//set timeout for getting results (in milliseconds)
+rusps.fconfirm = true;			//upon verifying of the address, do we want to confirm?
+rusps.fconfmsg = 'Is this the address you meant?'; //message displayed on the confirm box
+rusps.autocheck = false;
+&lt;/script&gt;
+&lt;/head&gt;
+</pre>
+<br>
+The main form that is validated.
+<pre class="prettyprint lang-html" width="100%">
+&lt;form name="checkform" id="checkform"&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;Address 1:&lt;/td&gt;&lt;td&gt;&lt;input type="text" name="address1" value="1600 Pennsylvania Avenue"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Address 2:&lt;/td&gt;&lt;td&gt;&lt;input type="text" id="address2" name="address2"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;City:&lt;/td&gt;&lt;td&gt;&lt;input type="text" id="city" name="city" value="Washington"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;State:&lt;/td&gt;
+&lt;td&gt;
+
+&lt;select name="state"&gt;
+&lt;option value="AL"&gt;Alabama&lt;/option&gt;
+&lt;option value="AK"&gt;Alaska&lt;/option&gt;
+&lt;option value="AS"&gt;American Samoa&lt;/option&gt;
+&lt;option value="AZ"&gt;Arizona&lt;/option&gt;
+&lt;option value="AR"&gt;Arkansas&lt;/option&gt;
+&lt;option value="CA"&gt;California&lt;/option&gt;
+&lt;option value="CO"&gt;Colorado&lt;/option&gt;
+&lt;option value="CT"&gt;Connecticut&lt;/option&gt;
+&lt;option value="DE"&gt;Delaware&lt;/option&gt;
+&lt;option value="DC" selected&gt;District of Columbia&lt;/option&gt;
+&lt;option value="FM"&gt;Federated States Of Micronesia&lt;/option&gt;
+&lt;option value="FL"&gt;Florida&lt;/option&gt;
+&lt;option value="GA"&gt;Georgia&lt;/option&gt;
+&lt;option value="GU"&gt;Guam&lt;/option&gt;
+&lt;option value="HI"&gt;Hawaii&lt;/option&gt;
+&lt;option value="ID"&gt;Idaho&lt;/option&gt;
+&lt;option value="IL"&gt;Illinois&lt;/option&gt;
+&lt;option value="IN"&gt;Indiana&lt;/option&gt;
+&lt;option value="IA"&gt;Iowa&lt;/option&gt;
+&lt;option value="KS"&gt;Kansas&lt;/option&gt;
+&lt;option value="KY"&gt;Kentucky&lt;/option&gt;
+&lt;option value="LA"&gt;Louisiana&lt;/option&gt;
+&lt;option value="ME"&gt;Maine&lt;/option&gt;
+&lt;option value="MH"&gt;Marshall Islands&lt;/option&gt;
+&lt;option value="MD"&gt;Maryland&lt;/option&gt;
+&lt;option value="MA"&gt;Massachusetts&lt;/option&gt;
+&lt;option value="MI"&gt;Michigan&lt;/option&gt;
+&lt;option value="MN"&gt;Minnesota&lt;/option&gt;
+&lt;option value="MS"&gt;Mississippi&lt;/option&gt;
+&lt;option value="MO"&gt;Missouri&lt;/option&gt;
+&lt;option value="MT"&gt;Montana&lt;/option&gt;
+&lt;option value="NE"&gt;Nebraska&lt;/option&gt;
+&lt;option value="NV"&gt;Nevada&lt;/option&gt;
+&lt;option value="NH"&gt;New Hampshire&lt;/option&gt;
+&lt;option value="NJ"&gt;New Jersey&lt;/option&gt;
+&lt;option value="NM"&gt;New Mexico&lt;/option&gt;
+&lt;option value="NY"&gt;New York&lt;/option&gt;
+&lt;option value="NC"&gt;North Carolina&lt;/option&gt;
+&lt;option value="ND"&gt;North Dakota&lt;/option&gt;
+&lt;option value="MP"&gt;Northern Mariana Islands&lt;/option&gt;
+&lt;option value="OH"&gt;Ohio&lt;/option&gt;
+&lt;option value="OK"&gt;Oklahoma&lt;/option&gt;
+&lt;option value="OR"&gt;Oregon&lt;/option&gt;
+&lt;option value="PW"&gt;Palau&lt;/option&gt;
+&lt;option value="PA"&gt;Pennsylvania&lt;/option&gt;
+&lt;option value="PR"&gt;Puerto Rico&lt;/option&gt;
+&lt;option value="RI"&gt;Rhode Island&lt;/option&gt;
+&lt;option value="SC"&gt;South Carolina&lt;/option&gt;
+&lt;option value="SD"&gt;South Dakota&lt;/option&gt;
+&lt;option value="TN"&gt;Tennessee&lt;/option&gt;
+&lt;option value="TX"&gt;Texas&lt;/option&gt;
+&lt;option value="UT"&gt;Utah&lt;/option&gt;
+&lt;option value="VT"&gt;Vermont&lt;/option&gt;
+&lt;option value="VI"&gt;Virgin Islands&lt;/option&gt;
+&lt;option value="VA"&gt;Virginia&lt;/option&gt;
+&lt;option value="WA"&gt;Washington&lt;/option&gt;
+&lt;option value="WV"&gt;West Virginia&lt;/option&gt;
+&lt;option value="WI"&gt;Wisconsin&lt;/option&gt;
+&lt;option value="WY"&gt;Wyoming&lt;/option&gt;
+&lt;/select&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Zip:&lt;/td&gt;&lt;td&gt;&lt;input type="text" name="zip" autocomplete="off"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&nbsp;&lt;/td&gt;&lt;td&gt;&lt;input type="button" value="Verify" onclick="rusps.verifyAddress('address')"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/form&gt;
+</pre>
+</body>
+</html>

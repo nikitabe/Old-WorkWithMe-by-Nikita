@@ -1,0 +1,132 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+<title>Work With Me</title>
+<link href="assets/css/astyle.css" rel="stylesheet" type="text/css" />
+
+
+
+<head>
+
+
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false
+    &amp;key=ABQIAAAA3MkIWluwirjPGWsAh4ELkBT2yXp_ZAY8_ufC3CFXhHIE1NvwkxQdRoAQBDldyi17oFiloFbB_YTFTg"
+    type="text/javascript">
+  </script>
+
+<!-- Please link to my blog http://maxheapsize.com if you use this code. -->
+
+<script type="text/javascript">
+
+
+    var map;
+    var geocoder;
+
+    function initialize() {
+      map = new GMap2(document.getElementById("map_canvas"));
+      map.setCenter(new GLatLng(34, 0), 1);
+      geocoder = new GClientGeocoder();
+    }
+
+    function addAddressToMap(response) {
+      map.clearOverlays();
+      if (!response || response.Status.code != 200) {
+        alert("Sorry, we were unable to geocode that address");
+      } else {
+        place = response.Placemark[0];
+        point = new GLatLng(place.Point.coordinates[1],
+                            place.Point.coordinates[0]);
+        marker = new GMarker(point);
+        map.setCenter(point, 13);
+        map.addOverlay(marker);
+		var addr = document.getElementById('address');
+		addr.firstChild.data = place.address;
+      }
+    }
+
+    function showLocation() {
+    
+     alert("show location!!");
+      var address = document.forms[0].q.value;
+      geocoder.getLocations(address, addAddressToMap);
+    }
+
+    function findLocation(address) {
+      document.forms[0].q.value = address;
+      showLocation();
+    }
+
+
+function find_me()
+{
+	if (navigator.geolocation) {
+
+	   navigator.geolocation.getCurrentPosition(function(position) {  
+	   
+	   		  alert("find me!!");
+
+	   s = position.coords.latitude+","+position.coords.longitude;
+		document.forms[0].q.value = s;
+		showLocation();
+	 }); 
+	  
+	} else {
+	  alert("I'm sorry, but geolocation services are not supported by your browser.");
+	}  
+}
+
+find_me();
+</script>
+
+</head>
+<body onload="initialize()">
+<a href="" class="logo"><strong>Work With Me</strong></a>
+
+<form name="createEvent" method="post" action="createEvent.php">
+Please enter the following information for your event:
+<br>
+Your name:
+<input name="username" type=text>
+<br>
+Where are you:
+<input name="location" type="text">
+<br>
+What time you gonna be there:
+<br>
+From: <input name="start_date" type="text">
+<br>
+To:
+<input name="end_date" type="text">
+<br>
+What will you be doing?
+<input name="working_on" type="textarea">
+<br>
+What are you looking for?
+<input name="looking_for" type="textarea">
+<br>
+Message:
+<input name="comment" type="textarea">
+
+<input type="submit">
+</form>
+
+
+
+<form action="#" onsubmit="showLocation(); return false;">
+  <p>
+	<b>Search for an address:</b>
+	<input type="text" name="q" value="" class="address_input" size="40" />
+	<input type="submit" name="find" value="Search" />
+<button type="button" onclick="find_me()">Find me!</button>
+	
+  </p>
+</form>
+
+<div id="map_canvas" style="width: 500px; height: 300px"></div>
+
+You location is: <span id="address">Unknown</span>.
+
+</body>

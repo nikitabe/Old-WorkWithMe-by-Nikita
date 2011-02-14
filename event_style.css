@@ -1,0 +1,38 @@
+.last_found_address{
+color:gray;
+font-size:10px;
+}
+
+.item_title{
+color:#333;
+font-size:10px;
+padding-top:5px;
+}
+
+.submit_result{
+color:green;
+font-size:12px;
+font-family:"Arial", Arial, sans-serif;
+}
+
+body{
+background-color:black;
+}
+
+.container{
+background-color:white;
+padding:50px;
+width:300px;
+margin-left: auto ;
+margin-right: auto ;
+
+}
+
+.container1{
+background-color:white;
+padding:50px;
+width:500px;
+margin-left: auto ;
+margin-right: auto ;
+
+}

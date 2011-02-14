@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<html>
+
+<head>
+
+
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false
+    &amp;key=ABQIAAAA3MkIWluwirjPGWsAh4ELkBT2yXp_ZAY8_ufC3CFXhHIE1NvwkxQdRoAQBDldyi17oFiloFbB_YTFTg"
+    type="text/javascript">
+  </script>
+
+<!-- Please link to my blog http://maxheapsize.com if you use this code. -->
+
+<script type="text/javascript">
+
+
+    var map;
+    var geocoder;
+
+    function initialize() {
+      map = new GMap2(document.getElementById("map_canvas"));
+      map.setCenter(new GLatLng(34, 0), 1);
+      geocoder = new GClientGeocoder();
+    }
+
+    function addAddressToMap(response) {
+      map.clearOverlays();
+      if (!response || response.Status.code != 200) {
+        alert("Sorry, we were unable to geocode that address");
+      } else {
+        place = response.Placemark[0];
+        point = new GLatLng(place.Point.coordinates[1],
+                            place.Point.coordinates[0]);
+        marker = new GMarker(point);
+        map.setCenter(point, 13);
+        map.addOverlay(marker);
+		var addr = document.getElementById('address');
+		addr.firstChild.data = place.address;
+      }
+    }
+
+    function showLocation() {
+      var address = document.forms[0].q.value;
+      geocoder.getLocations(address, addAddressToMap);
+    }
+
+    function findLocation(address) {
+      document.forms[0].q.value = address;
+      showLocation();
+    }
+
+
+function find_me()
+{
+	if (navigator.geolocation) {
+	   navigator.geolocation.getCurrentPosition(function(position) {  
+	    s = position.coords.latitude+","+position.coords.longitude;
+		document.forms[0].q.value = s;
+		showLocation();
+	 }); 
+	  
+	} else {
+	  alert("I'm sorry, but geolocation services are not supported by your browser.");
+	}  
+}
+
+find_me();
+</script>
+
+</head>
+
+<body onload="initialize()">
+
+<form action="#" onsubmit="showLocation(); return false;">
+  <p>
+	<b>Search for an address:</b>
+	<input type="text" name="q" value="" class="address_input" size="40" />
+	<input type="submit" name="find" value="Search" />
+<button type="button" onclick="find_me()">Find me!</button>
+	
+  </p>
+</form>
+
+<div id="map_canvas" style="width: 500px; height: 300px"></div>
+
+You location is: <span id="address">Unknown</span>.
+</body>
+
+
+
+</html>
